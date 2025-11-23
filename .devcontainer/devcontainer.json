@@ -1,6 +1,6 @@
 {
-    "name": "FitYaar Flutter Development",
-    "image": "ghcr.io/cirruslabs/flutter:stable",
+    "name": "FitYaar React Native Development",
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
     "features": {
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers/features/github-cli:1": {}
@@ -8,41 +8,60 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "Dart-Code.dart-code",
-                "Dart-Code.flutter",
-                "alexisvt.flutter-snippets",
-                "Nash.awesome-flutter-snippets",
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "ms-vscode.vscode-typescript-next",
+                "msjsdiag.vscode-react-native",
+                "dsznajder.es7-react-js-snippets",
                 "usernamehw.errorlens",
                 "eamodio.gitlens"
             ],
             "settings": {
-                "dart.flutterSdkPath": "/sdks/flutter",
-                "dart.debugExternalPackageLibraries": true,
-                "dart.debugSdkLibraries": false,
                 "editor.formatOnSave": true,
-                "editor.formatOnType": true,
+                "editor.defaultFormatter": "esbenp.prettier-vscode",
+                "editor.codeActionsOnSave": {
+                    "source.fixAll.eslint": "explicit"
+                },
+                "typescript.tsdk": "node_modules/typescript/lib",
+                "typescript.enablePromptUseWorkspaceTsdk": true,
                 "editor.rulers": [
-                    80
+                    100
                 ],
-                "files.trimTrailingWhitespace": true
+                "files.trimTrailingWhitespace": true,
+                "[typescript]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                },
+                "[typescriptreact]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                },
+                "[javascript]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                },
+                "[json]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                }
             }
         }
     },
     "forwardPorts": [
-        5037
+        19000,
+        19001,
+        19002
     ],
     "portsAttributes": {
-        "5037": {
-            "label": "ADB",
+        "19000": {
+            "label": "Expo Dev Server",
             "onAutoForward": "notify"
+        },
+        "19001": {
+            "label": "Expo Dev Tools",
+            "onAutoForward": "ignore"
+        },
+        "19002": {
+            "label": "Expo Metro Bundler",
+            "onAutoForward": "ignore"
         }
     },
     "postCreateCommand": "bash .devcontainer/setup.sh",
-    "remoteUser": "root",
-    "mounts": [
-        "source=/dev/bus/usb,target=/dev/bus/usb,type=bind"
-    ],
-    "runArgs": [
-        "--privileged"
-    ]
+    "remoteUser": "node"
 }

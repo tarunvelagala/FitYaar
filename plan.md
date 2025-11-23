@@ -1,12 +1,12 @@
 # FitYaar - Workout Tracker App
 
-> **A minimalist neumorphism Flutter app for tracking workouts and fitness progress**
+> **A minimalist iOS-inspired React Native app for tracking workouts and fitness progress**
 
 ---
 
 ## 📱 Product Overview
 
-**FitYaar** is a modern workout tracking application built with Flutter, featuring a clean minimalist design with pastel card colors and bold typography. The app combines beautiful iOS-inspired aesthetics with powerful workout tracking, helping users log workouts, track progress, and maintain fitness consistency across iOS and Android platforms.
+**FitYaar** is a modern workout tracking application built with React Native and Expo, featuring a clean minimalist design with pastel card colors and bold typography. The app combines beautiful iOS-inspired aesthetics with powerful workout tracking, helping users log workouts, track progress, and maintain fitness consistency across iOS and Android platforms.
 
 ### Target Platforms
 - iOS (App Store)
@@ -266,43 +266,49 @@ Accent Gray: #8E8E93
 ## 🏗️ Technical Architecture
 
 ### Tech Stack
-- **Framework**: Flutter 3.x
-- **Language**: Dart 3.x
-- **State Management**: Riverpod / Bloc
-- **Local Database**: Hive / SQLite
+- **Framework**: React Native with Expo
+- **Language**: TypeScript
+- **State Management**: Zustand
+- **Server State**: React Query (@tanstack/react-query)
+- **Local Database**: AsyncStorage / SQLite (expo-sqlite)
 - **Cloud Backend**: Firebase (Authentication, Firestore, Storage)
 - **Analytics**: Firebase Analytics
 - **Crash Reporting**: Firebase Crashlytics
-- **Camera**: camera / image_picker packages
-- **Image Processing**: image package (filters, compression)
-- **Video Player**: video_player, chewie, cached_video_player
+- **Camera**: expo-camera
+- **Image Processing**: expo-image-manipulator (filters, compression)
+- **Video Player**: expo-av
+- **Navigation**: React Navigation
 
 ### Project Structure
 ```
-lib/
-├── core/
-│   ├── constants/
-│   ├── theme/
-│   ├── utils/
-│   └── widgets/
-├── features/
+src/
+├── components/
+│   ├── common/
+│   ├── workout/
+│   └── progress/
+├── screens/
 │   ├── auth/
-│   │   ├── data/
-│   │   ├── domain/
-│   │   └── presentation/
+│   ├── home/
 │   ├── workouts/
-│   │   ├── data/
-│   │   ├── domain/
-│   │   └── presentation/
 │   ├── exercises/
 │   ├── progress/
 │   ├── snaps/              # Workout Snaps feature
 │   └── profile/
+├── navigation/
+│   ├── AppNavigator.tsx
+│   └── types.ts
 ├── services/
-│   ├── database/
+│   ├── firebase/
 │   ├── api/
 │   └── notifications/
-└── main.dart
+├── hooks/
+├── store/
+├── types/
+├── theme/
+│   ├── colors.ts
+│   └── typography.ts
+└── utils/
+App.tsx
 ```
 
 ### Data Models

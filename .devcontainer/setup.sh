@@ -1,67 +1,89 @@
 #!/bin/bash
 
-echo "🚀 Setting up FitYaar Flutter Development Environment..."
+echo "🚀 Setting up FitYaar React Native + Expo Development Environment..."
+
+# Switch to root for installations if needed
+if [ "$(whoami)" != "root" ]; then
+    echo "Switching to root for package installations..."
+    exec sudo bash "$0" "$@"
+fi
 
 # Update package lists
+echo "📦 Updating package lists..."
 apt-get update
 
-# Install required packages for ADB
-echo "📱 Installing ADB and USB tools..."
-apt-get install -y android-tools-adb android-tools-fastboot android-sdk-platform-tools usbutils
-
-# Install additional dependencies
+# Install basic development tools
+echo "🛠️  Installing development tools..."
 apt-get install -y \
     curl \
     git \
     unzip \
-    xz-utils \
-    zip \
-    libglu1-mesa \
-    openjdk-17-jdk \
-    npm \ 
-    
-    wget
+    wget \
+    vim
 
-# Set JAVA_HOME
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-echo "export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> ~/.bashrc
+# Install Watchman (for better file watching in React Native)
+echo "👁️  Installing Watchman..."
+apt-get install -y watchman || echo "⚠️  Watchman not available in apt, skipping..."
 
-# Flutter is already installed in the base image at /sdks/flutter
-export PATH="$PATH:/sdks/flutter/bin"
-echo "export PATH=\"\$PATH:/sdks/flutter/bin\"" >> ~/.bashrc
+# Verify Node.js and npm are installed
+echo "🔍 Verifying Node.js installation..."
+node --version
+npm --version
 
-# Accept Android licenses
-echo "✅ Accepting Android licenses..."
-yes | flutter doctor --android-licenses 2>/dev/null || true
+# Install Expo CLI globally
+echo "📱 Installing Expo CLI and EAS CLI..."
+npm install -g expo-cli eas-cli
 
-# Run flutter doctor
-echo "🔍 Running Flutter doctor..."
-flutter doctor -v
-
-# Get Flutter dependencies (if pubspec.yaml exists)
-if [ -f "pubspec.yaml" ]; then
-    echo "📦 Getting Flutter dependencies..."
-    flutter pub get
+# Install project dependencies if package.json exists
+if [ -f "package.json" ]; then
+    echo "📦 Installing project dependencies..."
+    npm install
+else
+    echo "⚠️  No package.json found, skipping npm install"
 fi
 
-# Start ADB server
-echo "📱 Starting ADB server..."
-adb start-server
+# Set up environment variables for Expo
+echo "🔧 Setting up environment variables..."
+export EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+echo "export EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0" >> ~/.bashrc
 
 echo ""
 echo "✅ Setup complete!"
 echo ""
-echo "📱 To connect your phone via Remote ADB:"
-echo "1. Install remote-adb on your laptop the below tools"
-echo "1.1 If apt-based (Linux)"
-echo "sudo apt update"
-echo "sudo apt install android-sdk-platform-tools ngrok"
-echo "1.2 If Homebrew macOS"
-echo "brew install android-platform-tools ngrok"
-echo "1.3 ngrok config add-authtoken <your-token>"
-echo "2. Connect phone via USB to laptop"
-echo "3. Run on laptop: adb start-server && ngrok tcp 5037"
-echo "4. In Codespaces, run: export ADB_SERVER_SOCKET=tcp:<YOUR_NGROK_URL>:<YOUR_NGROK_PORT>"
-echo "5. Verify: adb devices"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📱 FitYaar React Native + Expo Development Environment Ready!"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-echo "🚀 Ready to build FitYaar!"
+echo "🚀 Quick Start:"
+echo ""
+echo "   npx expo start --tunnel"
+echo ""
+echo "📱 Testing on Your Device:"
+echo ""
+echo "   1. Install Expo Go on your phone:"
+echo "      • iOS:     https://apps.apple.com/app/expo-go/id982107779"
+echo "      • Android: https://play.google.com/store/apps/details?id=host.exp.exponent"
+echo ""
+echo "   2. Start the development server:"
+echo "      npx expo start --tunnel"
+echo ""
+echo "   3. Scan the QR code:"
+echo "      • iOS:     Use Camera app"
+echo "      • Android: Use Expo Go app"
+echo ""
+echo "   4. App will load on your device automatically!"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📚 Documentation:"
+echo "   • Quick Start:      QUICK_START.md"
+echo "   • Codespaces Guide: CODESPACES_GUIDE.md"
+echo "   • Test App Guide:   TEST_APP_GUIDE.md"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "💡 Tips:"
+echo "   • Press 'r' in terminal to reload app"
+echo "   • Press 'm' to toggle menu"
+echo "   • Shake device to open developer menu"
+echo ""
+echo "🎨 Happy coding! Build something amazing! 🚀"
+echo ""

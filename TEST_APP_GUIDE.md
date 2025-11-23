@@ -1,123 +1,98 @@
-# FitYaar Test App - Setup Verification
+# FitYaar Test App - Setup Complete! ✅
 
-## 🎯 Purpose
+> **The React Native + Expo test app is ready to run on your device**
 
-This is a simple test app to verify your GitHub Codespaces + remote-adb setup works correctly before building the full FitYaar app.
+## 🎉 What's Working
 
-## ✅ What to Test
+The test app demonstrates:
+- ✅ React Native + Expo setup
+- ✅ TypeScript configuration
+- ✅ iOS-inspired pastel card design
+- ✅ Bold typography system
+- ✅ Interactive counter with state management
+- ✅ Hot reload functionality
 
-### 1. App Runs on Phone
-- App should launch on your connected phone
-- You should see the FitYaar logo (purple dumbbell icon)
-- Green success message: "🎉 Setup Working!"
+## 📱 Running the Test App
 
-### 2. UI Works
-- **Counter Display**: Shows a number in a blue pastel card
-- **Three Buttons**:
-  - **Pink (-) button**: Decreases counter
-  - **Beige (↻) button**: Resets counter to 0
-  - **Green (+) button**: Increases counter
-- All buttons should respond to taps
-
-### 3. Hot Reload Works
-This is the **most important test**!
-
-**Try this:**
-1. While app is running, go to `lib/main.dart`
-2. Change line 73 (the success message):
-   ```dart
-   '🎉 Setup Working!',
-   ```
-   to:
-   ```dart
-   '🚀 Hot Reload Works!',
-   ```
-3. **Save the file**
-4. In Codespaces terminal, press **`r`**
-5. **Look at your phone** - the text should update instantly!
-
-If this works, you're ready to build FitYaar! 🎉
-
-### 4. Design System Preview
-The test app uses FitYaar's actual color palette:
-- **Purple** (#B4A5F6): Logo background
-- **Blue** (#D4E7F7): Counter display
-- **Green** (#E3F5E8): Success message & increment button
-- **Pink** (#FFE8F0): Decrement button
-- **Beige** (#F5EFE7): Reset button
-- **Light Gray** (#F5F5F7): Instructions background
-
-## 🚀 How to Run
-
-### In GitHub Codespaces:
+### Quick Start
 
 ```bash
-# Get dependencies
-flutter pub get
+# Install dependencies (if not done already)
+npm install
 
-# Check devices
-flutter devices
-
-# Run on your phone
-flutter run
+# Start the development server
+npx expo start
 ```
 
-### Expected Output:
-```
-Launching lib/main.dart on <YOUR_PHONE> in debug mode...
-Running Gradle task 'assembleDebug'...
-✓ Built build/app/outputs/flutter-apk/app-debug.apk.
-Installing build/app/outputs/flutter-apk/app-debug.apk...
-Syncing files to device <YOUR_PHONE>...
+### Expected Output
 
-Flutter run key commands.
-r Hot reload. 🔥🔥🔥
-R Hot restart.
-h List all available interactive commands.
-d Detach (terminate "flutter run" but leave application running).
-c Clear the screen
-q Quit (terminate the application on the device).
+You should see:
 ```
+› Metro waiting on exp://192.168.x.x:8081
+› Scan the QR code above with Expo Go (Android) or the Camera app (iOS)
+
+› Press a │ open Android
+› Press w │ open web
+
+› Press r │ reload app
+› Press m │ toggle menu
+› Press ? │ show all commands
+```
+
+## 🎨 What You'll See
+
+The test screen includes:
+
+1. **FitYaar Logo** - Purple pastel card with 💪 emoji
+2. **Success Message** - Green pastel card confirming setup
+3. **Interactive Counter** - Blue pastel card with number
+4. **Three Buttons**:
+   - Pink card: Decrement (−)
+   - Beige card: Reset (↻)
+   - Green card: Increment (+)
+5. **Instructions** - Purple pastel card with checklist
+
+## 🔥 Testing Hot Reload
+
+1. Open `src/screens/home/HomeScreen.tsx`
+2. Change the success message text
+3. Press `r` in terminal or shake device
+4. See instant update!
 
 ## 🐛 Troubleshooting
 
-### "No devices found"
+### Can't see the app?
+
 ```bash
-# Reconnect to your laptop
-adb connect <YOUR_LAPTOP_IP>:5037
-adb devices
-flutter devices
+# Try tunnel mode for remote access
+npx expo start --tunnel
 ```
 
-### App won't install
+### App crashes or won't load?
+
 ```bash
-# Clean and retry
-flutter clean
-flutter pub get
-flutter run
+# Clear cache and restart
+npx expo start -c
 ```
 
-### Hot reload not working
-- Make sure you press `r` (lowercase) not `R`
-- Check that you saved the file after editing
-- Try `R` (capital R) for hot restart instead
+### Need to reinstall?
 
-## ✅ Success Criteria
+```bash
+# Clean install
+rm -rf node_modules
+npm install
+npx expo start
+```
 
-If you can:
-1. ✅ See the app on your phone
-2. ✅ Tap buttons and see counter change
-3. ✅ Edit code and press `r` to see instant updates
+## ✨ Next Steps
 
-**Then your setup is perfect! We can start building FitYaar!** 🚀
+Once the test app is working:
 
-## 🎯 Next Steps
+1. **Verify Design** - Check that pastel cards and typography match the design reference
+2. **Test Interactions** - Tap all buttons and verify counter updates
+3. **Test Hot Reload** - Make code changes and see instant updates
+4. **Start Building** - Begin implementing actual FitYaar features!
 
-Once this test app works:
-1. We'll add the Lottie splash screen
-2. Build the real FitYaar home screen
-3. Add navigation
-4. Implement workout tracking
-5. Add the 24-hour snaps feature
+---
 
-**Ready to test? Run `flutter run` in Codespaces!** 📱
+**Ready to test? Run `npx expo start` in Codespaces!** 📱

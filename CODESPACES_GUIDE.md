@@ -1,295 +1,248 @@
-# FitYaar - GitHub Codespaces with Remote ADB
+# FitYaar - GitHub Codespaces Setup Guide
 
-## 🚀 Complete Setup Guide
+> **Complete guide for developing FitYaar in GitHub Codespaces with React Native + Expo**
 
-Your devcontainer is configured for GitHub Codespaces with **Remote ADB** support!
+## 🎯 Overview
 
----
+This guide will help you set up and run the FitYaar React Native app in GitHub Codespaces and test it on your physical Android/iOS device.
 
-## 📱 How Remote ADB Works
+## 📋 Prerequisites
 
-```
-Your Phone (USB) → Your Laptop → Internet → GitHub Codespaces
-```
+- GitHub account with Codespaces access
+- Physical Android or iOS device
+- **Expo Go app** installed on your device:
+  - [iOS - App Store](https://apps.apple.com/app/expo-go/id982107779)
+  - [Android - Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent)
 
-**remote-adb** creates a bridge between your laptop and Codespaces, allowing you to debug on your phone while coding in the cloud!
+## 🚀 Getting Started
 
----
+### 1. Open in Codespaces
 
-## 🎯 Step-by-Step Setup
+1. Go to the FitYaar repository on GitHub
+2. Click the green **Code** button
+3. Select **Codespaces** tab
+4. Click **Create codespace on main**
 
-### Step 1: Push to GitHub
+Wait for the environment to build (2-3 minutes first time).
 
-```bash
-# Create GitHub repo (if not exists)
-# Go to github.com → New Repository → "FitYaar"
+### 2. Install Dependencies
 
-# Add remote
-git remote add origin https://github.com/YOUR_USERNAME/FitYaar.git
-
-# Push everything
-git push -u origin main
-```
-
-### Step 2: Open in Codespaces
-
-1. Go to your GitHub repository
-2. Click **"Code"** → **"Codespaces"** → **"Create codespace on main"**
-3. Wait for container to build (~3-5 minutes first time)
-
-### Step 3: Set Up Remote ADB on Your Laptop
-
-On your **work laptop** (one-time setup):
+The devcontainer should auto-install dependencies, but if needed:
 
 ```bash
-# Install Node.js (if not installed)
-# Download from: https://nodejs.org/
-
-# Install remote-adb globally
-npm install -g remote-adb
-
-# Verify installation
-remote-adb --version
+npm install
 ```
 
-### Step 4: Connect Your Phone
-
-#### On Your Laptop:
-
-1. **Enable USB Debugging** on your Android phone:
-   - Settings → About Phone → Tap "Build Number" 7 times
-   - Settings → Developer Options → Enable "USB Debugging"
-
-2. **Connect phone via USB** to your laptop
-
-3. **Start remote-adb server**:
-   ```bash
-   # Start the ADB relay (keeps running)
-   remote-adb --host 0.0.0.0
-   ```
-   
-   You should see:
-   ```
-   Remote ADB server started on port 5037
-   ```
-
-4. **Get your laptop's IP address**:
-   - Mac: System Preferences → Network → IP Address
-   - Or run: `ipconfig getifaddr en0`
-
-#### In GitHub Codespaces:
-
-1. **Connect to your laptop's ADB**:
-   ```bash
-   adb connect <YOUR_LAPTOP_IP>:5037
-   ```
-   
-   Example:
-   ```bash
-   adb connect 192.168.1.100:5037
-   ```
-
-2. **Verify connection**:
-   ```bash
-   adb devices
-   ```
-   
-   You should see your phone listed! 🎉
-
-### Step 5: Run FitYaar on Your Phone
+### 3. Start Expo Development Server
 
 ```bash
-# Check Flutter recognizes your device
-flutter devices
-
-# Run the app
-flutter run
-
-# Hot reload (while running)
-r
-
-# Hot restart
-R
-
-# Quit
-q
+npx expo start --tunnel
 ```
 
----
+**Important:** Use `--tunnel` flag in Codespaces to create a public URL accessible from your phone.
 
-## 🔧 Useful Commands
+### 4. Connect Your Device
 
-### ADB Commands
-```bash
-# List connected devices
-adb devices
+**Using Expo Go (Recommended)**
 
-# Reconnect if disconnected
-adb connect <YOUR_LAPTOP_IP>:5037
+1. Open Expo Go app on your phone
+2. Scan the QR code shown in the terminal
+3. App will load on your device automatically
 
-# Disconnect
-adb disconnect
+That's it! No USB cables, no ADB setup needed. Expo's tunnel mode creates a secure connection between Codespaces and your phone over the internet.
 
-# Check ADB server status
-adb devices -l
-```
+## 📱 Testing on Your Device
 
-### Flutter Commands
-```bash
-# Run on connected device
-flutter run
+### Expected Behavior
 
-# Run in debug mode
-flutter run --debug
+When the app loads, you should see:
+- FitYaar test screen with pastel cards
+- Interactive counter
+- Three buttons (−, ↻, +)
+- Success message confirming setup
 
-# Run in release mode (faster)
-flutter run --release
+### Hot Reload
 
-# Clean build
-flutter clean
+Make changes to the code and:
+- Press `r` in terminal to reload
+- Or shake your device and tap "Reload"
+- Changes appear instantly!
 
-# Get dependencies
-flutter pub get
+## 🛠️ Development Workflow
 
-# Check setup
-flutter doctor -v
-```
-
----
-
-## 🐛 Troubleshooting
-
-### "No devices found"?
-
-1. **Check remote-adb is running** on your laptop
-2. **Verify connection**:
-   ```bash
-   adb connect <YOUR_LAPTOP_IP>:5037
-   adb devices
-   ```
-3. **Restart ADB** in Codespaces:
-   ```bash
-   adb kill-server
-   adb start-server
-   adb connect <YOUR_LAPTOP_IP>:5037
-   ```
-
-### "Connection refused"?
-
-1. **Check firewall** on your laptop (allow port 5037)
-2. **Verify same network**: Laptop and Codespaces need internet access
-3. **Try reconnecting**:
-   ```bash
-   adb disconnect
-   adb connect <YOUR_LAPTOP_IP>:5037
-   ```
-
-### Phone not showing in "Allow USB Debugging"?
-
-1. **Disconnect and reconnect** USB cable
-2. **Revoke USB debugging** authorizations:
-   - Developer Options → Revoke USB debugging authorizations
-3. **Reconnect** and allow again
-
-### Remote-adb keeps disconnecting?
-
-Keep the `remote-adb` terminal window open on your laptop. If it closes, restart it:
-```bash
-remote-adb --host 0.0.0.0
-```
-
----
-
-## ⚡ Pro Tips
-
-### 1. Keep remote-adb Running
-Create a script on your laptop to auto-start remote-adb:
-
-**Mac/Linux** (`~/start-remote-adb.sh`):
-```bash
-#!/bin/bash
-while true; do
-    echo "Starting remote-adb..."
-    remote-adb --host 0.0.0.0
-    echo "remote-adb stopped. Restarting in 5 seconds..."
-    sleep 5
-done
-```
-
-Make it executable:
-```bash
-chmod +x ~/start-remote-adb.sh
-./start-remote-adb.sh
-```
-
-### 2. Save Your Laptop IP
-Create an alias in Codespaces terminal:
+### Common Commands
 
 ```bash
-echo 'alias connect-phone="adb connect 192.168.1.100:5037"' >> ~/.bashrc
-source ~/.bashrc
+# Start development server with tunnel
+npx expo start --tunnel
 
-# Now just run:
-connect-phone
+# Start with cache cleared
+npx expo start --tunnel -c
+
+# View logs
+npx expo start --tunnel --dev-client
+
+# Install new package
+npm install <package-name>
 ```
 
-### 3. Hot Reload is Your Friend
-While app is running, press `r` to hot reload changes instantly!
+### File Structure
 
-### 4. Use Flutter DevTools
+```
+FitYaar/
+├── App.tsx                 # Main entry point
+├── src/
+│   ├── components/         # Reusable components
+│   ├── screens/            # App screens
+│   ├── theme/              # Colors, typography
+│   ├── navigation/         # Navigation setup
+│   └── services/           # Firebase, API
+├── app.json                # Expo config
+└── package.json            # Dependencies
+```
+
+### Making Changes
+
+1. Edit files in `src/` directory
+2. Save the file
+3. Press `r` in terminal or shake device
+4. See changes instantly!
+
+## 🔧 Troubleshooting
+
+### Can't Connect to Development Server
+
+**Problem:** QR code scan doesn't work
+
+**Solution:**
 ```bash
-# Install DevTools
-flutter pub global activate devtools
-
-# Run DevTools
-flutter pub global run devtools
+# Use tunnel mode (creates public URL)
+npx expo start --tunnel
 ```
 
----
+### App Won't Load
 
-## 📊 Workflow Summary
+**Problem:** App crashes or shows error
 
-**Daily Development Flow:**
+**Solution:**
+```bash
+# Clear cache and restart
+npx expo start --tunnel -c
 
-1. **On Laptop**: Start `remote-adb --host 0.0.0.0`
-2. **In Codespaces**: `adb connect <LAPTOP_IP>:5037`
-3. **Verify**: `flutter devices`
-4. **Code**: Make changes in Codespaces
-5. **Run**: `flutter run`
-6. **Test**: App runs on your phone!
-7. **Iterate**: Press `r` for hot reload
+# Or reinstall dependencies
+rm -rf node_modules
+npm install
+npx expo start --tunnel
+```
 
----
+### Slow Performance in Codespaces
 
-## 💰 Codespaces Usage
+**Problem:** Development server is slow
 
-**Free Tier:**
-- 60 hours/month
-- 2-core machine
+**Solution:**
+- Use a smaller Codespace machine type
+- Close unused browser tabs
+- Restart Codespace if needed
 
-**Tips:**
-- Stop codespace when done (Settings → Stop)
-- Delete unused codespaces
-- Use "Rebuild container" instead of new codespace
+### TypeScript Errors
 
----
+**Problem:** Red squiggly lines in editor
 
-## 🎯 Next Steps
+**Solution:**
+```bash
+# Reinstall dependencies
+npm install
 
-1. ✅ Push code to GitHub
-2. ✅ Open in Codespaces
-3. ✅ Install remote-adb on laptop
-4. ✅ Connect phone
-5. ✅ Start building FitYaar! 🚀
+# Restart TypeScript server in VS Code
+# Cmd/Ctrl + Shift + P → "TypeScript: Restart TS Server"
+```
 
----
+## 🎨 Design System
+
+FitYaar uses an iOS-inspired minimalist design:
+
+### Colors
+- **Backgrounds:** White (#FFFFFF), Light Gray (#F5F5F7)
+- **Pastel Cards:** Blue, Beige, Green, Yellow, Pink, Purple
+- **Text:** Black (#000000), Gray (#6B6B6B)
+
+### Typography
+- **Display:** 48px, bold
+- **Heading:** 32px, bold
+- **Body:** 17px, regular
+
+See `src/theme/colors.ts` and `src/theme/typography.ts` for full design system.
 
 ## 📚 Resources
 
-- [remote-adb GitHub](https://github.com/nisargjhaveri/remote-adb)
-- [Flutter Docs](https://docs.flutter.dev/)
-- [GitHub Codespaces Docs](https://docs.github.com/en/codespaces)
+### Documentation
+- [Expo Docs](https://docs.expo.dev/)
+- [React Native Docs](https://reactnative.dev/docs/getting-started)
+- [React Navigation](https://reactnavigation.org/docs/getting-started)
+- [Firebase Docs](https://firebase.google.com/docs)
+
+### Community
+- [Expo Discord](https://chat.expo.dev/)
+- [React Native Community](https://reactnative.dev/community/overview)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/expo)
+
+## 🔥 Firebase Setup (Coming Soon)
+
+When ready to add Firebase:
+
+1. Create Firebase project at [console.firebase.google.com](https://console.firebase.google.com)
+2. Add web app to Firebase project
+3. Copy configuration to `.env` file
+4. Install Firebase: `npm install firebase`
+5. Configure in `src/services/firebase/config.ts`
+
+## 📝 Quick Reference
+
+### Start Development
+```bash
+npx expo start --tunnel
+```
+
+### Clear Cache
+```bash
+npx expo start --tunnel -c
+```
+
+### Install Package
+```bash
+npm install <package-name>
+```
+
+### View Device Logs
+```bash
+npx expo start --tunnel --dev-client
+```
+
+### Build for Production (Future)
+```bash
+eas build --platform android
+eas build --platform ios
+```
+
+## ✅ Checklist
+
+Before starting development:
+
+- [ ] Codespace is running
+- [ ] Dependencies installed (`npm install`)
+- [ ] Expo Go app installed on phone
+- [ ] Development server started (`npx expo start --tunnel`)
+- [ ] App loads on device
+- [ ] Hot reload works
+- [ ] Test screen displays correctly
+
+## 🎯 Next Steps
+
+1. **Verify Setup** - Run test app and confirm everything works
+2. **Explore Code** - Check `src/` directory structure
+3. **Read Plan** - Review `plan.md` for feature roadmap
+4. **Start Building** - Begin implementing FitYaar features!
 
 ---
 
-**Ready to start? Let's build FitYaar in the cloud!** ☁️📱
+**Need help? Check the troubleshooting section or open an issue!** 🚀
