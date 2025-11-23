@@ -4,6 +4,39 @@
 
 This repository includes automated build and release workflows for Android and iOS.
 
+## ⚡ Quick Start (First Time Setup)
+
+**You must complete these steps locally before GitHub Actions can build:**
+
+1. **Install EAS CLI** (if not already installed):
+   ```bash
+   npm install -g eas-cli
+   ```
+
+2. **Login to Expo**:
+   ```bash
+   eas login
+   ```
+   Enter your Expo credentials (or create account at expo.dev)
+
+3. **Initialize EAS Project**:
+   ```bash
+   eas init
+   ```
+   This will:
+   - Create a project on Expo servers
+   - Add `projectId` to your `app.json`
+   - Link your local project to Expo
+
+4. **Commit the changes**:
+   ```bash
+   git add app.json
+   git commit -m "Initialize EAS project"
+   git push
+   ```
+
+Now GitHub Actions can build your app!
+
 ## 📋 Prerequisites
 
 ### 1. Expo Account
