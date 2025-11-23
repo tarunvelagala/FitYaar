@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Animated, Image } from 'react-native';
 import { Text } from '../components/common';
 import { colors, spacing } from '../theme';
+import * as ExpoSplashScreen from 'expo-splash-screen';
 
 interface SplashScreenProps {
     onFinish?: () => void;
@@ -25,6 +26,9 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
     );
 
     useEffect(() => {
+        // Keep the native splash visible until we hide it manually
+        ExpoSplashScreen.preventAutoHideAsync();
+
         // Simple fade in
         Animated.timing(fadeAnim, {
             toValue: 1,
@@ -48,17 +52,19 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
             ])
         ).start();
 
-        // Auto-finish after 2.5 seconds
+        // Auto‑finish after 2.5 seconds
         const timer = setTimeout(() => {
-            if (onFinish) {
-                Animated.timing(fadeAnim, {
-                    toValue: 0,
-                    duration: 500,
-                    useNativeDriver: true,
-                }).start(() => {
+            // Fade out the JS splash, then hide the native splash
+            Animated.timing(fadeAnim, {
+                toValue: 0,
+                duration: 500,
+                useNativeDriver: true,
+            }).start(async () => {
+                await ExpoSplashScreen.hideAsync();
+                if (onFinish) {
                     onFinish();
-                });
-            }
+                }
+            });
         }, 2500);
 
         return () => clearTimeout(timer);

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "fityaar",
-    "slug": "fityaar",
+    "name": "FitYaar",
+    "slug": "FitYaar",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,10 +14,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.fityaar.app"
+      "bundleIdentifier": "com.vtkr.fityaar"
     },
     "android": {
-      "package": "com.fityaar.app",
+      "package": "com.vtkr.fityaar",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon-padded.png",
         "backgroundColor": "#ffffff"
