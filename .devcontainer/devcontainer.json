@@ -1,0 +1,48 @@
+{
+    "name": "FitYaar Flutter Development",
+    "image": "ghcr.io/cirruslabs/flutter:stable",
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Dart-Code.dart-code",
+                "Dart-Code.flutter",
+                "alexisvt.flutter-snippets",
+                "Nash.awesome-flutter-snippets",
+                "usernamehw.errorlens",
+                "eamodio.gitlens"
+            ],
+            "settings": {
+                "dart.flutterSdkPath": "/sdks/flutter",
+                "dart.debugExternalPackageLibraries": true,
+                "dart.debugSdkLibraries": false,
+                "editor.formatOnSave": true,
+                "editor.formatOnType": true,
+                "editor.rulers": [
+                    80
+                ],
+                "files.trimTrailingWhitespace": true
+            }
+        }
+    },
+    "forwardPorts": [
+        5037
+    ],
+    "portsAttributes": {
+        "5037": {
+            "label": "ADB",
+            "onAutoForward": "notify"
+        }
+    },
+    "postCreateCommand": "bash .devcontainer/setup.sh",
+    "remoteUser": "root",
+    "mounts": [
+        "source=/dev/bus/usb,target=/dev/bus/usb,type=bind"
+    ],
+    "runArgs": [
+        "--privileged"
+    ]
+}
