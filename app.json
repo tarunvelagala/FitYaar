@@ -4,29 +4,36 @@
     "slug": "fityaar",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/icons/ios-light.png",
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon-padded.png",
+      "image": "./assets/icons/splash-icon-light.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "dark": {
+        "image": "./assets/icons/splash-icon-dark.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#000000"
+      }
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.vtkr.fityaar"
+      "bundleIdentifier": "com.vtkr.fityaar",
+      "icon": "./assets/icons/ios-light.png",
+      "tintedIcon": "./assets/icons/ios-tinted.png"
     },
     "android": {
       "package": "com.vtkr.fityaar",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon-padded.png",
+        "foregroundImage": "./assets/icons/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icons/ios-light.png"
     },
     "extra": {
       "eas": {

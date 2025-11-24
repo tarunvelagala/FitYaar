@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Animated, Image } from 'react-native';
+import { View, StyleSheet, Animated, Image, useColorScheme } from 'react-native';
 import { Text } from '../components/common';
 import { colors, spacing } from '../theme';
 import * as ExpoSplashScreen from 'expo-splash-screen';
@@ -19,11 +19,15 @@ const fitnessEmojis = ['🏋️', '🏃', '🚴', '🏊', '🧘', '⛹️', '�
 export const AppSplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
     const fadeAnim = useRef(new Animated.Value(0)).current;
     const scaleAnim = useRef(new Animated.Value(1)).current;
+    const colorScheme = useColorScheme();
 
     // Pick a random emoji on mount
     const [randomEmoji] = useState(() =>
         fitnessEmojis[Math.floor(Math.random() * fitnessEmojis.length)]
     );
+
+    // Determine background color based on color scheme
+    const backgroundColor = colorScheme === 'dark' ? '#000000' : '#ffffff';
 
     useEffect(() => {
         // Keep the native splash visible until we hide it manually
@@ -70,7 +74,7 @@ export const AppSplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
     }, [fadeAnim, scaleAnim, onFinish]);
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor }]}>
             <Animated.View style={[styles.content, { opacity: fadeAnim }]}>
                 {/* App Logo */}
                 <Image
@@ -98,7 +102,6 @@ export const AppSplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background.primary,
         justifyContent: 'center',
         alignItems: 'center',
     },

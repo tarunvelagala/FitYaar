@@ -53,7 +53,7 @@ export default function App() {
             </Card>
           </View>
         </View>
-        <StatusBar style="dark" />
+        <StatusBar style="auto" />
       </SafeAreaView>
     </SafeAreaProvider>
   );
