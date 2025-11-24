@@ -8,11 +8,11 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/icons/splash-icon-light.png",
+      "image": "./assets/icons/splash-icon-dark.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff",
       "dark": {
-        "image": "./assets/icons/splash-icon-dark.png",
+        "image": "./assets/icons/splash-icon-light.png",
         "resizeMode": "contain",
         "backgroundColor": "#000000"
       }
@@ -20,13 +20,17 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.vtkr.fityaar",
-      "icon": "./assets/icons/ios-light.png",
-      "tintedIcon": "./assets/icons/ios-tinted.png"
+      "icon": {
+        "light": "./assets/icons/ios-light.png",
+        "dark": "./assets/icons/ios-dark.png",
+        "tinted": "./assets/icons/ios-tinted.png"
+      }
     },
     "android": {
       "package": "com.vtkr.fityaar",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/adaptive-icon.png",
+        "monochromeImage": "./assets/icons/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
