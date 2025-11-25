@@ -1,5 +1,5 @@
 // src/theme/ThemeContext.tsx
-import React, { createContext, useContext, ReactNode, useState } from 'react';
+import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { lightColors, darkColors } from './colors';
 import { ThemeContextType } from './types';
@@ -14,12 +14,21 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
     // Manage theme state manually to allow toggling
     // Initialize with system preference or default to light
+    const [manualOverride, setManualOverride] = useState<boolean>(false);
     const [theme, setTheme] = useState<'light' | 'dark'>(systemColorScheme || 'light');
+
+    // Sync with system theme changes (unless manually overridden)
+    useEffect(() => {
+        if (!manualOverride && systemColorScheme) {
+            setTheme(systemColorScheme);
+        }
+    }, [systemColorScheme, manualOverride]);
 
     const isDark = theme === 'dark';
     const colors = isDark ? darkColors : lightColors;
 
     const toggleTheme = () => {
+        setManualOverride(true); // User manually toggled, stop syncing with system
         setTheme(prev => prev === 'light' ? 'dark' : 'light');
     };
 
