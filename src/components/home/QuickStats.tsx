@@ -2,7 +2,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from '@components/common/Text';
-import { Card } from '@components/common/Card';
 import { useTheme } from '@theme/ThemeContext';
 import { spacing } from '@theme/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     divider: {
-        width: 1,
+        width: 0.3,
         height: 40,
     },
 });
