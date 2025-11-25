@@ -5,7 +5,7 @@ const palette = {
     // Base & Contrast
     white: '#FFFFFF',
     textDark: '#1A1A1A',        // Primary text/high-contrast elements (Near-Black)
-    softRose: '#FBE9E9',        // Main screen background
+    paleGray: '#fafbfc',        // Main screen background (very light gray)
 
     // Brand & Icon Colors
     brandGreen: '#91CC64',      // Primary Brand Color (Your requested Green)
@@ -42,7 +42,7 @@ export type ThemeColors = {
 
 // 3. Light Mode (Mimics the Image)
 export const lightColors: ThemeColors = {
-    background: palette.softRose, // Pale Pink/Rose background
+    background: palette.paleGray, // Very light gray background
     card: palette.white,          // White cards
     textPrimary: palette.textDark,
     textSecondary: palette.softGray,
