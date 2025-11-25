@@ -11,6 +11,7 @@ import {
 import { useTheme } from '@theme/ThemeContext';
 import { spacing, borderRadius, typography } from '@theme/constants';
 import { TextInputProps } from './Input.types';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 /**
  * TextInput component with label, error states, and icons
@@ -109,9 +110,7 @@ export const TextInput: React.FC<TextInputProps> = ({
 
                 {showClearButton && value.length > 0 && !disabled && (
                     <Pressable onPress={handleClear} style={styles.clearButton}>
-                        <Text style={[styles.clearText, { color: colors.textSecondary }]}>
-                            ✕
-                        </Text>
+                        <MaterialCommunityIcons name="close-circle" size={20} color={colors.textSecondary} />
                     </Pressable>
                 )}
 

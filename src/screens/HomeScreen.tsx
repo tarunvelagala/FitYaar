@@ -1,7 +1,7 @@
 // src/screens/HomeScreen.tsx
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // Assuming you use Expo icons
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../theme/ThemeContext';
 
 export default function HomeScreen() {
@@ -13,8 +13,8 @@ export default function HomeScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.card}>
-                <Ionicons
-                    name="sparkles"
+                <MaterialCommunityIcons
+                    name="star-four-points"
                     size={32}
                     color={colors.icon} // Uses Black in light, Purple in dark
                 />

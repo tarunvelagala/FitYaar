@@ -6,6 +6,8 @@ import { useTheme } from '@theme/ThemeContext';
 import { spacing, borderRadius, typography } from '@theme/constants';
 import { SearchInputProps } from './Input.types';
 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 /**
  * SearchInput component with debounced onChange and search icon
  */
@@ -43,6 +45,8 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         onChangeText('');
     };
 
+    // ... (inside component)
+
     return (
         <View
             style={[
@@ -54,7 +58,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
                 style,
             ]}
         >
-            <Text style={styles.searchIcon}>🔍</Text>
+            <MaterialCommunityIcons name="magnify" size={20} color={colors.textSecondary} style={styles.searchIcon} />
 
             <RNTextInput
                 style={[
@@ -72,12 +76,13 @@ export const SearchInput: React.FC<SearchInputProps> = ({
             />
 
             {localValue.length > 0 && (
-                <Text
-                    style={[styles.clearButton, { color: colors.textSecondary }]}
+                <MaterialCommunityIcons
+                    name="close-circle"
+                    size={20}
+                    color={colors.textSecondary}
                     onPress={handleClear}
-                >
-                    ✕
-                </Text>
+                    style={styles.clearButton}
+                />
             )}
         </View>
     );
